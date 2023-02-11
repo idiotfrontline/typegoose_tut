@@ -1,0 +1,20 @@
+{
+  "name": "youtube_typegoose_tut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@typegoose/typegoose": "^10.1.1",
+    "@types/node": "^18.13.0",
+    "mongoose": "^6.9.1",
+    "node": "^19.6.0",
+    "ts-node": "^10.9.1"
+  }
+}
