@@ -1,3 +1,4 @@
+import { UserModel } from "./models/User"
 import mongoose from "mongoose"
 
 const run = async (func: any) => {
@@ -10,8 +11,14 @@ const run = async (func: any) => {
   await mongoose.disconnect()
 }
 
-const printSomething = () => {
-  console.log("Hello!")
+const createUsers = async () => {
+  await UserModel.create({
+    username: "Conny",
+    job: {
+      title: "programmer",
+      company: "booble",
+    },
+  })
 }
 
-run(printSomething)
+run(createUsers)
