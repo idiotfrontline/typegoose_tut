@@ -21,4 +21,12 @@ const createUsers = async () => {
   })
 }
 
-run(createUsers)
+const queryUsers = async () => {
+  const res = await UserModel.find({
+    username: "Conny",
+    "job.company": "booble",
+  }).exec()
+  console.log(res)
+}
+
+run(queryUsers)

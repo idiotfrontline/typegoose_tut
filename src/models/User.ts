@@ -1,4 +1,9 @@
-import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose"
+import {
+  getModelForClass,
+  index,
+  modelOptions,
+  prop,
+} from "@typegoose/typegoose"
 
 @modelOptions({ schemaOptions: { _id: false } })
 class Job {
@@ -9,6 +14,7 @@ class Job {
   company: string
 }
 
+@index({ username: 1, "job.company": 1 })
 @modelOptions({ schemaOptions: { collection: "users" } })
 export class UserClass {
   @prop({ required: true })
