@@ -1,24 +1,35 @@
 import { UserModel } from "./models/User"
 import mongoose from "mongoose"
 
-const run = async (func: any) => {
+const run = async (...funcs: any) => {
   await mongoose.connect("mongodb://localhost:27018", {
     dbName: "typegoose_tut",
   })
 
-  await func()
+  for (const func of funcs) {
+    await func()
+  }
 
   await mongoose.disconnect()
 }
 
 const createUsers = async () => {
-  await UserModel.create({
-    username: "Conny",
-    job: {
-      title: "programmer",
-      company: "booble",
+  await UserModel.create([
+    {
+      username: "Conny",
+      job: {
+        title: "programmer",
+        company: "booble",
+      },
     },
-  })
+    {
+      username: "Adrian",
+      job: {
+        title: "consultant",
+        company: "bigface",
+      },
+    },
+  ])
 }
 
 const queryUsers = async () => {
@@ -29,4 +40,8 @@ const queryUsers = async () => {
   console.log(res)
 }
 
-run(queryUsers)
+const dropData = async () => {
+  await UserModel.collection.drop()
+}
+
+run(dropData, createUsers)
