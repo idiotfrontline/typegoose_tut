@@ -1,5 +1,7 @@
+import { PostModel } from "./models/Post"
 import { UserModel } from "./models/User"
 import mongoose from "mongoose"
+import util from "util"
 
 const run = async (...funcs: any) => {
   await mongoose.connect("mongodb://localhost:27018", {
@@ -44,4 +46,41 @@ const dropData = async () => {
   await UserModel.collection.drop()
 }
 
-run(dropData, createUsers)
+const createPosts = async () => {
+  const conny = await UserModel.findOne({ username: "Conny" }).exec()
+  const adrian = await UserModel.findOne({ username: "Adrian" }).exec()
+
+  if (!conny) return
+  if (!adrian) return
+
+  await PostModel.create([
+    {
+      title: "Hello",
+      content: "Good morning!",
+      tags: ["blog"],
+      author: conny.id,
+    },
+    {
+      title: "Hello2",
+      content: "Good afternoon!",
+      tags: ["blog"],
+      author: conny.id,
+    },
+    {
+      title: "Hello3",
+      content: "Typegoose is fun!",
+      tags: ["coding"],
+      author: adrian.id,
+    },
+  ])
+}
+
+const queryPosts = async () => {
+  const res = await PostModel.find()
+    .populate({ path: "author", select: "username job.title" })
+    .exec()
+
+  console.log(util.inspect(res, false, null, true))
+}
+
+run(queryPosts)
