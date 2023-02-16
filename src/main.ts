@@ -43,7 +43,8 @@ const queryUsers = async () => {
 }
 
 const dropData = async () => {
-  await UserModel.collection.drop()
+  // await UserModel.collection.drop()
+  await PostModel.collection.drop()
 }
 
 const createPosts = async () => {
@@ -83,4 +84,4 @@ const queryPosts = async () => {
   console.log(util.inspect(res, false, null, true))
 }
 
-run(queryPosts)
+run(dropData, createPosts)

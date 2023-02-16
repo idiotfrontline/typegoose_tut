@@ -7,6 +7,9 @@ import {
 } from "@typegoose/typegoose"
 import { UserClass } from "./User"
 
+@pre<PostClass>("save", function () {
+  this.title = this.title.toUpperCase()
+})
 @modelOptions({ schemaOptions: { collection: "posts", timestamps: true } })
 class PostClass {
   @prop({ required: true })
