@@ -13,8 +13,10 @@
   "dependencies": {
     "@typegoose/typegoose": "^10.1.1",
     "@types/node": "^18.13.0",
+    "@types/validator": "^13.7.12",
     "mongoose": "^6.9.1",
     "node": "^19.6.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "validator": "^13.9.0"
   }
 }

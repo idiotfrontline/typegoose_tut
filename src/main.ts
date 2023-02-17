@@ -84,4 +84,17 @@ const queryPosts = async () => {
   console.log(util.inspect(res, false, null, true))
 }
 
-run(dropData, createPosts)
+const updateUsers = async () => {
+  await UserModel.findOneAndUpdate(
+    { username: "Conny" },
+    { email: "conny@abc.com" },
+    { runValidators: true }
+  ).exec()
+
+  const user = await UserModel.findOne({ username: "Adrian" }).exec()
+  if (!user) return
+  user.email = "adrian@abc.com"
+  await user.save()
+}
+
+run(updateUsers)
