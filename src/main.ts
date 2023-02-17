@@ -97,4 +97,17 @@ const updateUsers = async () => {
   await user.save()
 }
 
-run(updateUsers)
+const getVirtual = async () => {
+  const res = await UserModel.findOne({ username: "Conny" }).exec()
+  console.log(res)
+  console.log(res?.summary)
+}
+
+const setVirutal = async () => {
+  const user = await UserModel.findOne({ username: "Conny" }).exec()
+  if (!user) return
+  user.summary = "Conny!, developer, bighead"
+  await user.save()
+}
+
+run(setVirutal)

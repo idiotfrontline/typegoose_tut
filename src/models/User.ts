@@ -16,7 +16,13 @@ class Job {
 }
 
 @index({ username: 1, "job.company": 1 })
-@modelOptions({ schemaOptions: { collection: "users" } })
+@modelOptions({
+  schemaOptions: {
+    collection: "users",
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
+})
 export class UserClass {
   @prop({ required: true, minlength: 3 })
   username: string
@@ -33,6 +39,17 @@ export class UserClass {
     },
   })
   email: string
+
+  get summary() {
+    return this.username + ", " + this.job.title + ", " + this.job.company
+  }
+
+  set summary(full) {
+    const [username, title, company] = full.split(",")
+    this.username = username.trim()
+    this.job.title = title.trim()
+    this.job.company = company.trim()
+  }
 }
 
 export const UserModel = getModelForClass(UserClass)
