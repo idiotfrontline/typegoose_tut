@@ -110,4 +110,22 @@ const setVirutal = async () => {
   await user.save()
 }
 
-run(setVirutal)
+const addPasswords = async () => {
+  await UserModel.findOneAndUpdate(
+    { username: "Conny" },
+    { password: "pw1" }
+  ).exec()
+  await UserModel.findOneAndUpdate(
+    { username: "Adrian" },
+    { password: "pw2" }
+  ).exec()
+}
+
+const instanceMethod = async () => {
+  const user = await UserModel.findOne({ username: "Conny" }).exec()
+
+  const res = user?.comparePassword("pw1")
+  console.log("comparePassword: ", res)
+}
+
+run(instanceMethod)

@@ -1,4 +1,5 @@
 import {
+  DocumentType,
   getModelForClass,
   index,
   modelOptions,
@@ -40,6 +41,9 @@ export class UserClass {
   })
   email: string
 
+  @prop()
+  password: string
+
   get summary() {
     return this.username + ", " + this.job.title + ", " + this.job.company
   }
@@ -49,6 +53,10 @@ export class UserClass {
     this.username = username.trim()
     this.job.title = title.trim()
     this.job.company = company.trim()
+  }
+
+  comparePassword(this: DocumentType<UserClass>, password: string) {
+    return this.password == password
   }
 }
 
