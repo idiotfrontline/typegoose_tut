@@ -1,9 +1,11 @@
+import { PostModel } from "./Post"
 import {
   DocumentType,
   getModelForClass,
   index,
   modelOptions,
   prop,
+  ReturnModelType,
 } from "@typegoose/typegoose"
 import validator from "validator"
 
@@ -57,6 +59,17 @@ export class UserClass {
 
   comparePassword(this: DocumentType<UserClass>, password: string) {
     return this.password == password
+  }
+
+  static async getPostByUsername(
+    this: ReturnModelType<typeof UserClass>,
+    username: string
+  ) {
+    const user = await UserModel.findOne({ username }).exec()
+
+    if (!user) return
+
+    return await PostModel.find({ author: user.id }).populate("author").exec()
   }
 }
 

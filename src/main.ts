@@ -130,4 +130,9 @@ const instanceMethod = async () => {
   console.log("comparePassword: ", res)
 }
 
-run(instanceMethod)
+const staticMethod = async () => {
+  const res = await UserModel.getPostByUsername("Conny")
+  console.log(res)
+}
+
+run(staticMethod)
