@@ -122,7 +122,9 @@ const addPasswords = async () => {
 }
 
 const instanceMethod = async () => {
-  const user = await UserModel.findOne({ username: "Conny" }).exec()
+  const user = await UserModel.findOne({ username: "Conny" })
+    .select("+password")
+    .exec()
 
   const res = user?.comparePassword("pw1")
   console.log("comparePassword: ", res)

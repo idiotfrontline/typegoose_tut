@@ -41,7 +41,7 @@ export class UserClass {
   })
   email: string
 
-  @prop()
+  @prop({ select: false })
   password: string
 
   get summary() {
