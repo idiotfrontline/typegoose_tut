@@ -135,4 +135,12 @@ const staticMethod = async () => {
   console.log(res)
 }
 
-run(staticMethod)
+const tryPlugin = async () => {
+  const user = await UserModel.findOne({ username: "Adrian" }).exec()
+  if (!user) return
+  const posts = await PostModel.find({ author: user.id }).exec()
+
+  console.log(posts)
+}
+
+run(tryPlugin)

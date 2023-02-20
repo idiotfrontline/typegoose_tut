@@ -1,12 +1,15 @@
 import {
   getModelForClass,
   modelOptions,
+  plugin,
   pre,
   prop,
   Ref,
 } from "@typegoose/typegoose"
 import { UserClass } from "./User"
+import autopopulate from "mongoose-autopopulate"
 
+@plugin(autopopulate)
 @pre<PostClass>("save", function () {
   this.title = this.title.toUpperCase()
 })
@@ -21,7 +24,7 @@ class PostClass {
   @prop({ type: () => [String] })
   tags?: string[]
 
-  @prop({ required: true, ref: () => UserClass })
+  @prop({ autopopulate: true, required: true, ref: () => UserClass })
   author!: Ref<UserClass>
 }
 
